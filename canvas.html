@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    canvas{
+        border: 1px solid #000000;
+    }
+</style>
+<body>
+    <canvas class="canvas1" width="300" height="300"> </canvas>
+    <script>
+        let canvas1 = document.querySelector('.canvas1');
+        let ctx = canvas1.getContext('2d');
+        for(let i=0;i<5;i++){
+            for(let j=0;j<5;j++){
+                let color = `rgb(${(255-51*j)},${(255-51*i)},0)`
+                ctx.fillStyle = color;
+                ctx.fillRect(60*j,60*i,60,60)
+            }
+        }
+    </script>
+    <canvas class="canvas2" width="300" height="400"></canvas>
+    <script>
+        let canvas2 = document.querySelector('.canvas2');
+        let ctx1 = canvas2.getContext('2d');
+        let PI = Math.PI;
+        for(let i=0;i<4;i++){
+            for(let j=0;j<3;j++){
+                let x = (j + 1)*10 + (j*2 + 1)*40,
+                    y = (i + 1)*10 + (i*2 + 1)*40;
+                let color = `rgb(${(255-51*j)},${(255-51*i)},0)`;
+                let angle = i % 2==0?false:true;
+                ctx1.strokeStyle = color;
+                ctx1.arc(x,y,40,0,PI+PI/2*j,angle);
+                if(i>1){
+                    ctx1.fillStyle = color;
+                    ctx1.fill();
+                }
+                ctx1.stroke();
+                ctx1.beginPath();
+            }
+        }
+    </script>
+    <canvas class="canvas3" width="300" height="300"> </canvas>
+    <script>
+        let canvas3 = document.querySelector('.canvas3');
+        let ctx2 = canvas3.getContext('2d');
+        function sum(num){
+            let r = 100;
+            let deg = 2*PI/num;
+            ctx2.beginPath();
+            ctx2.moveTo(150 + r,150);
+            for(let i = 0;i < num;i++){
+                let x = 150 + r*Math.cos(deg*i);
+                let y = 150 + r*Math.sin(deg*i);
+                ctx2.lineTo(x,y);
+            }
+            ctx2.closePath();
+            ctx2.strokeStyle = 'red'
+            ctx2.stroke();
+	    }
+	sum(6)
+    </script>
+    <canvas class="canvas4" width="300" height="300"> </canvas>
+    <script>
+        let canvas4 = document.querySelector('.canvas4');
+        let ctx3 = canvas4.getContext('2d');
+        let a = 0;
+        let t = setInterval(function () {
+            a++;
+            let angle = 2*Math.PI/100;
+            let r = 50;
+            ctx3.clearRect(0,0,300,300);
+            ctx3.beginPath();
+            ctx3.lineWidth = 4;
+            ctx3.arc(150,150,r,0,angle*a);
+            ctx3.strokeStyle = '#ff6700';
+            ctx3.stroke();
+            ctx3.closePath();
+            ctx3.beginPath();
+            ctx3.font = '24px/30px serif';
+            ctx3.textAlign = 'center';
+            ctx3.textBaseline= 'middle';
+            ctx3.fillStyle = '#71ffa7';
+            ctx3.fillText(`${a}`,150,150);
+            if(a == 100){
+                clearInterval(t);
+            }
+        },100);
+    </script>
+</body>
+</html>
